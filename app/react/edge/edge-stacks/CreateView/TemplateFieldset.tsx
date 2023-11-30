@@ -1,5 +1,4 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import sanitize from 'sanitize-html';
 import { FormikErrors } from 'formik';
 
 import { useCustomTemplates } from '@/react/portainer/templates/custom-templates/queries/useCustomTemplates';
@@ -9,6 +8,7 @@ import {
   VariablesFieldValue,
   getVariablesFieldDefaultValues,
 } from '@/react/portainer/custom-templates/components/CustomTemplatesVariablesField';
+import { TemplateNote } from '@/react/portainer/templates/components/TemplateNote';
 
 import { FormControl } from '@@/form-components/FormControl';
 import { PortainerSelect } from '@@/form-components/PortainerSelect';
@@ -62,22 +62,7 @@ export function TemplateFieldset({
       />
       {values.template && (
         <>
-          {values.template.Note && (
-            <div>
-              <div className="col-sm-12 form-section-title"> Information </div>
-              <div className="form-group">
-                <div className="col-sm-12">
-                  <div
-                    className="template-note"
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{
-                      __html: sanitize(values.template.Note),
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
+          <TemplateNote note={values.template.Note} />
 
           <CustomTemplatesVariablesField
             onChange={(value) => {

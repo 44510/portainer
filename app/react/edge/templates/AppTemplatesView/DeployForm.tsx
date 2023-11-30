@@ -1,4 +1,3 @@
-import { Rocket } from 'lucide-react';
 import { Form, Formik } from 'formik';
 import { array, lazy, number, object, string } from 'yup';
 import { useRouter } from '@uirouter/react';
@@ -7,10 +6,8 @@ import _ from 'lodash';
 import { TemplateViewModel } from '@/react/portainer/templates/app-templates/view-model';
 import { EnvironmentType } from '@/react/portainer/environments/types';
 import { notifySuccess } from '@/portainer/services/notifications';
+import { DeployWidget } from '@/react/portainer/templates/components/DeployWidget';
 
-import { Widget } from '@@/Widget';
-import { FallbackImage } from '@@/FallbackImage';
-import { Icon } from '@@/Icon';
 import { FormActions } from '@@/form-components/FormActions';
 import { Button } from '@@/buttons';
 
@@ -35,24 +32,13 @@ export function DeployFormWidget({
   unselect: () => void;
 }) {
   return (
-    <div className="row">
-      <div className="col-sm-12">
-        <Widget>
-          <Widget.Title
-            icon={
-              <FallbackImage
-                src={template.Logo}
-                fallbackIcon={<Icon icon={Rocket} />}
-              />
-            }
-            title={template.Title}
-          />
-          <Widget.Body>
-            <DeployForm template={template} unselect={unselect} />
-          </Widget.Body>
-        </Widget>
-      </div>
-    </div>
+    <DeployWidget
+      title={template.Title}
+      logo={template.Logo}
+      note={template.Note}
+    >
+      <DeployForm template={template} unselect={unselect} />
+    </DeployWidget>
   );
 }
 
