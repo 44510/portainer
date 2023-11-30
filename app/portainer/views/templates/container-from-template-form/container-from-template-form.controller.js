@@ -71,7 +71,6 @@ export default function ContainerFromTemplateFormController(
         env: this.template.Env || [],
       };
 
-      // const endpointId = +$state.params.endpointId;
       const { volumes, networks } = await $q.all({
         volumes: VolumeService.getVolumes(),
         networks: NetworkService.networks(
@@ -126,8 +125,9 @@ export default function ContainerFromTemplateFormController(
         TemplateService.updateContainerConfigurationWithVolumes(templateConfiguration, this.formValues.volumes, generatedVolumes);
 
         await ImageService.pullImage(template.RegistryModel, true);
+        const endpointId = +$state.params.endpointId;
 
-        const containerResponse = await ContainerService.createAndStartContainer(templateConfiguration);
+        const containerResponse = await ContainerService.createAndStartContainer(endpointId, templateConfiguration);
         const resourceControl = containerResponse.Portainer.ResourceControl;
         await ResourceControlService.applyResourceControl(userId, accessControlData, resourceControl, generatedVolumeIds);
 

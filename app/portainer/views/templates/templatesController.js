@@ -6,7 +6,6 @@ angular.module('portainer.app').controller('TemplatesController', [
   '$scope',
   '$q',
   '$state',
-  '$anchorScroll',
   'TemplateService',
   'Notifications',
   'ResourceControlService',
@@ -14,7 +13,7 @@ angular.module('portainer.app').controller('TemplatesController', [
   'FormValidator',
   'StackService',
   '$async',
-  function ($scope, $q, $state, $anchorScroll, TemplateService, Notifications, ResourceControlService, Authentication, FormValidator, StackService, $async) {
+  function ($scope, $q, $state, TemplateService, Notifications, ResourceControlService, Authentication, FormValidator, StackService, $async) {
     const DOCKER_STANDALONE = 'DOCKER_STANDALONE';
     const DOCKER_SWARM_MODE = 'DOCKER_SWARM_MODE';
 
@@ -24,8 +23,6 @@ angular.module('portainer.app').controller('TemplatesController', [
       formValidationError: '',
       actionInProgress: false,
     };
-
-    $scope.enabledTypes = [TemplateType.Container, TemplateType.ComposeStack];
 
     $scope.formValues = {
       network: '',
@@ -162,7 +159,7 @@ angular.module('portainer.app').controller('TemplatesController', [
         $scope.formValues.name = template.Name ? template.Name : '';
         $scope.state.selectedTemplate = template;
         $scope.state.deployable = isDeployable($scope.applicationState.endpoint, template.Type);
-        $anchorScroll('view-top');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     };
 

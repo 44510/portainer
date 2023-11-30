@@ -1,17 +1,9 @@
 <page-header id="'view-top'" title="'Application templates list'" breadcrumbs="['Templates']"> </page-header>
 
 <div class="row mb-5" ng-if="state.selectedTemplate">
-  <!-- stack-form -->
-  <stack-from-template-form
-    ng-if="state.selectedTemplate.Type === 2 || state.selectedTemplate.Type === 3"
-    template="state.selectedTemplate"
-    form-values="formValues"
-    state="state"
-    create-template="createTemplate"
-    unselect-template="unselectTemplate"
-  >
-  </stack-from-template-form>
-  <!-- !stack-form -->
+  <stack-from-template-form-widget ng-if="state.selectedTemplate.Type === 2 || state.selectedTemplate.Type === 3" template="state.selectedTemplate" unselect="unselectTemplate">
+  </stack-from-template-form-widget>
+
   <!-- container-form -->
   <container-from-template-form
     ng-if="state.selectedTemplate.Type === 1"
