@@ -45,6 +45,7 @@ import { accessControlModule } from './access-control';
 import { environmentsModule } from './environments';
 import { registriesModule } from './registries';
 import { accountModule } from './account';
+import { activityLogsModule } from './activity-logs';
 
 export const ngModule = angular
   .module('portainer.app.react.components', [
@@ -55,6 +56,7 @@ export const ngModule = angular
     registriesModule,
     settingsModule,
     accountModule,
+    activityLogsModule,
   ])
   .component(
     'tagSelector',
