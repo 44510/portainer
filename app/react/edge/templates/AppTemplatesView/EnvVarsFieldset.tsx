@@ -1,4 +1,5 @@
 import { FormikErrors } from 'formik';
+import { array, string } from 'yup';
 
 import { TemplateEnv } from '@/react/portainer/templates/app-templates/types';
 
@@ -74,3 +75,7 @@ function Item({
     </FormControl>
   );
 }
+
+export const appTemplateEnvVarValidationSchema = array()
+  .transform((_, orig) => Object.values(orig))
+  .of(string().required('Required'));

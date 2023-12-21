@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { useIsEnvironmentAdmin } from '@/react/hooks/useUser';
 import { useCurrentEnvironment } from '@/react/hooks/useCurrentEnvironment';
 
@@ -12,10 +14,12 @@ export function VolumesTab({
   onChange,
   values,
   errors,
+  allowAuto = false,
 }: {
   onChange: (values: Values) => void;
   values: Values;
   errors?: ArrayError<Values>;
+  allowAuto?: boolean;
 }) {
   const isEnvironmentAdmin = useIsEnvironmentAdmin();
   const envQuery = useCurrentEnvironment();
@@ -25,8 +29,13 @@ export function VolumesTab({
     envQuery.data?.SecuritySettings.allowBindMountsForRegularUsers
   );
 
+  const inputContext = useMemo(
+    () => ({ allowBindMounts, allowAuto }),
+    [allowAuto, allowBindMounts]
+  );
+
   return (
-    <InputContext.Provider value={allowBindMounts}>
+    <InputContext.Provider value={inputContext}>
       <InputList<Volume>
         errors={Array.isArray(errors) ? errors : []}
         label="Volume mapping"

@@ -4,16 +4,8 @@
   <stack-from-template-form-widget ng-if="state.selectedTemplate.Type === 2 || state.selectedTemplate.Type === 3" template="state.selectedTemplate" unselect="unselectTemplate">
   </stack-from-template-form-widget>
 
-  <!-- container-form -->
-  <container-from-template-form
-    ng-if="state.selectedTemplate.Type === 1"
-    template="state.selectedTemplate"
-    create-template="createTemplate"
-    unselect-template="unselectTemplate"
-    allow-bind-mounts="endpoint.SecuritySettings.allowBindMountsForRegularUsers"
-  >
-  </container-from-template-form>
-  <!-- container-form -->
+  <container-from-app-template-form-widget ng-if="state.selectedTemplate.Type === 1" template="state.selectedTemplate" unselect="unselectTemplate">
+  </container-from-app-template-form-widget>
 </div>
 
 <app-templates-list

@@ -1,11 +1,10 @@
-import { commandStringToArray } from '@/docker/helpers/containers';
 import { TemplateViewModel } from '@/react/portainer/templates/app-templates/view-model';
 import { DockerHubViewModel } from 'Portainer/models/dockerhub';
 
 angular.module('portainer.app').factory('TemplateService', TemplateServiceFactory);
 
 /* @ngInject */
-function TemplateServiceFactory($q, Templates, TemplateHelper, ImageHelper, ContainerHelper, EndpointService) {
+function TemplateServiceFactory($q, Templates, EndpointService) {
   var service = {
     templates,
   };
@@ -44,43 +43,6 @@ function TemplateServiceFactory($q, Templates, TemplateHelper, ImageHelper, Cont
   function templateFile(repositoryUrl, composeFilePathInRepository) {
     return Templates.file({ repositoryUrl, composeFilePathInRepository }).$promise;
   }
-
-  service.createTemplateConfiguration = function (template, formValues) {
-    var imageConfiguration = ImageHelper.createImageConfigForContainer(template.RegistryModel);
-    var containerConfiguration = createContainerConfiguration(template, formValues);
-    containerConfiguration.Image = imageConfiguration.fromImage;
-    return containerConfiguration;
-  };
-
-  function createContainerConfiguration(template, formValues) {
-    var configuration = TemplateHelper.getDefaultContainerConfiguration();
-    configuration.HostConfig.NetworkMode = formValues.network;
-    configuration.HostConfig.Privileged = template.Privileged;
-    configuration.HostConfig.RestartPolicy = { Name: template.RestartPolicy };
-    configuration.HostConfig.ExtraHosts = formValues.hosts ? formValues.hosts : [];
-    configuration.name = formValues.name;
-    configuration.Hostname = formValues.hostname;
-    configuration.Env = TemplateHelper.EnvToStringArray(formValues.env);
-    configuration.Cmd = commandStringToArray(template.Command);
-    var portConfiguration = TemplateHelper.portArrayToPortConfiguration(formValues.ports);
-    configuration.HostConfig.PortBindings = portConfiguration.bindings;
-    configuration.ExposedPorts = portConfiguration.exposedPorts;
-    var consoleConfiguration = TemplateHelper.getConsoleConfiguration(template.Interactive);
-    configuration.OpenStdin = consoleConfiguration.openStdin;
-    configuration.Tty = consoleConfiguration.tty;
-    configuration.Labels = TemplateHelper.updateContainerConfigurationWithLabels(formValues.labels);
-    return configuration;
-  }
-
-  service.updateContainerConfigurationWithVolumes = function (configuration, volumes, generatedVolumesPile) {
-    TemplateHelper.createVolumeBindings(volumes, generatedVolumesPile);
-    volumes.forEach(function (volume) {
-      if (volume.binding) {
-        configuration.Volumes[volume.container] = {};
-        configuration.HostConfig.Binds.push(volume.binding);
-      }
-    });
-  };
 
   return service;
 }

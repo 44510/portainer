@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import { array, lazy, number, object, string } from 'yup';
+import { array, lazy, number, object } from 'yup';
 import { useRouter } from '@uirouter/react';
 import _ from 'lodash';
 
@@ -22,7 +22,10 @@ import { useEdgeStacks } from '../../edge-stacks/queries/useEdgeStacks';
 import { useEdgeGroups } from '../../edge-groups/queries/useEdgeGroups';
 import { useCreateEdgeStack } from '../../edge-stacks/queries/useCreateEdgeStack/useCreateEdgeStack';
 
-import { EnvVarsFieldset } from './EnvVarsFieldset';
+import {
+  EnvVarsFieldset,
+  appTemplateEnvVarValidationSchema,
+} from './EnvVarsFieldset';
 
 export function DeployFormWidget({
   template,
@@ -170,9 +173,7 @@ function validation(
           'Groups should be of the same type',
           (value) => _.uniq(getTypes(value)).length === 1
         ),
-      envVars: array()
-        .transform((_, orig) => Object.values(orig))
-        .of(string().required('Required')),
+      envVars: appTemplateEnvVarValidationSchema,
     });
   });
 
