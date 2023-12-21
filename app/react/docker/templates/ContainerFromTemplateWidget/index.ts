@@ -1,1 +1,0 @@
-export { ContainerFromTemplateWidget } from './ContainerFromTemplateWidget';

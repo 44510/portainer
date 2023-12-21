@@ -22,6 +22,7 @@ import {
 } from '@/react/portainer/custom-templates/components/CustomTemplatesVariablesField';
 import { StackType } from '@/react/common/stacks/types';
 import { toGitFormModel } from '@/react/portainer/gitops/types';
+import { AdvancedSettings } from '@/react/portainer/templates/app-templates/DeployFormWidget/AdvancedSettings';
 
 import { Button } from '@@/buttons';
 import { FormActions } from '@@/form-components/FormActions';
@@ -29,7 +30,6 @@ import { FormSection } from '@@/form-components/FormSection';
 import { WebEditorForm } from '@@/WebEditorForm';
 
 import { useSwarmId } from '../../proxy/queries/useSwarm';
-import { AdvancedSettings } from '../AdvancedSettings';
 
 import { FormValues } from './types';
 import { useValidation } from './useValidation';

@@ -3,7 +3,6 @@ import { Formik, Form } from 'formik';
 
 import { notifySuccess } from '@/portainer/services/notifications';
 import { useCreateStack } from '@/react/common/stacks/queries/useCreateStack/useCreateStack';
-import { EnvVarsFieldset } from '@/react/edge/templates/AppTemplatesView/EnvVarsFieldset';
 import { useEnvironmentId } from '@/react/hooks/useEnvironmentId';
 import { useCurrentUser } from '@/react/hooks/useUser';
 import { AccessControlForm } from '@/react/portainer/access-control';
@@ -11,23 +10,28 @@ import { parseAccessControlFormData } from '@/react/portainer/access-control/uti
 import { TemplateType } from '@/react/portainer/templates/app-templates/types';
 import { TemplateViewModel } from '@/react/portainer/templates/app-templates/view-model';
 import { NameField } from '@/react/common/stacks/CreateView/NameField';
+import { useSwarmId } from '@/react/docker/proxy/queries/useSwarm';
 
 import { Button } from '@@/buttons';
 import { FormActions } from '@@/form-components/FormActions';
 import { FormSection } from '@@/form-components/FormSection';
+import { TextTip } from '@@/Tip/TextTip';
 
-import { useSwarmId } from '../../proxy/queries/useSwarm';
+import { EnvVarsFieldset } from '../EdgeDeployForm/EnvVarsFieldset';
 
 import { FormValues } from './types';
 import { useValidation } from './useValidation';
+import { useIsDeployable } from './useIsDeployable';
 
-export function DeployForm({
+export function StackDeployForm({
   template,
   unselect,
 }: {
   template: TemplateViewModel;
   unselect: () => void;
 }) {
+  const isDeployable = useIsDeployable(template.Type);
+
   const router = useRouter();
   const { user, isAdmin } = useCurrentUser();
   const environmentId = useEnvironmentId();
@@ -42,6 +46,16 @@ export function DeployForm({
       {},
     accessControl: parseAccessControlFormData(isAdmin, user.Id),
   };
+
+  if (!isDeployable) {
+    return (
+      <div className="form-group">
+        <TextTip>
+          This template type cannot be deployed on this environment.
+        </TextTip>
+      </div>
+    );
+  }
 
   return (
     <Formik

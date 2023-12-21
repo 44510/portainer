@@ -7,20 +7,19 @@ import { TemplateViewModel } from '@/react/portainer/templates/app-templates/vie
 import { EnvironmentType } from '@/react/portainer/environments/types';
 import { notifySuccess } from '@/portainer/services/notifications';
 import { DeployWidget } from '@/react/portainer/templates/components/DeployWidget';
-
-import { FormActions } from '@@/form-components/FormActions';
-import { Button } from '@@/buttons';
-
-import { EdgeGroupsSelector } from '../../edge-stacks/components/EdgeGroupsSelector';
+import { EdgeGroupsSelector } from '@/react/edge/edge-stacks/components/EdgeGroupsSelector';
 import {
   NameField,
   nameValidation,
-} from '../../edge-stacks/CreateView/NameField';
-import { EdgeGroup } from '../../edge-groups/types';
-import { DeploymentType, EdgeStack } from '../../edge-stacks/types';
-import { useEdgeStacks } from '../../edge-stacks/queries/useEdgeStacks';
-import { useEdgeGroups } from '../../edge-groups/queries/useEdgeGroups';
-import { useCreateEdgeStack } from '../../edge-stacks/queries/useCreateEdgeStack/useCreateEdgeStack';
+} from '@/react/edge/edge-stacks/CreateView/NameField';
+import { EdgeGroup } from '@/react/edge/edge-groups/types';
+import { DeploymentType, EdgeStack } from '@/react/edge/edge-stacks/types';
+import { useEdgeStacks } from '@/react/edge/edge-stacks/queries/useEdgeStacks';
+import { useEdgeGroups } from '@/react/edge/edge-groups/queries/useEdgeGroups';
+import { useCreateEdgeStack } from '@/react/edge/edge-stacks/queries/useCreateEdgeStack/useCreateEdgeStack';
+
+import { Button } from '@@/buttons';
+import { FormActions } from '@@/form-components/FormActions';
 
 import {
   EnvVarsFieldset,
@@ -40,7 +39,7 @@ export function DeployFormWidget({
       logo={template.Logo}
       note={template.Note}
     >
-      <DeployForm template={template} unselect={unselect} />
+      <EdgeDeployForm template={template} unselect={unselect} />
     </DeployWidget>
   );
 }
@@ -51,7 +50,7 @@ interface FormValues {
   envVars: Record<string, string>;
 }
 
-function DeployForm({
+export function EdgeDeployForm({
   template,
   unselect,
 }: {

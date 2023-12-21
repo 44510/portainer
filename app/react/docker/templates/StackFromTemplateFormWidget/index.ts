@@ -1,1 +1,0 @@
-export { StackFromTemplateFormWidget } from './StackFromTemplateFormWidget';

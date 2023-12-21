@@ -1,31 +1,31 @@
 import { Formik, Form } from 'formik';
 
-import { EnvVarsFieldset } from '@/react/edge/templates/AppTemplatesView/EnvVarsFieldset';
 import { useEnvironmentId } from '@/react/hooks/useEnvironmentId';
 import { useCurrentUser } from '@/react/hooks/useUser';
 import { AccessControlForm } from '@/react/portainer/access-control';
 import { parseAccessControlFormData } from '@/react/portainer/access-control/utils';
-import { TemplateViewModel } from '@/react/portainer/templates/app-templates/view-model';
+import { NameField } from '@/react/docker/containers/CreateView/BaseForm/NameField';
+import { NetworkSelector } from '@/react/docker/containers/components/NetworkSelector';
+import { PortsMappingField } from '@/react/docker/containers/CreateView/BaseForm/PortsMappingField';
+import { VolumesTab } from '@/react/docker/containers/CreateView/VolumesTab';
+import { HostsFileEntries } from '@/react/docker/containers/CreateView/NetworkTab/HostsFileEntries';
+import { LabelsTab } from '@/react/docker/containers/CreateView/LabelsTab';
+import { HostnameField } from '@/react/docker/containers/CreateView/NetworkTab/HostnameField';
 
-import { Button } from '@@/buttons';
-import { FormActions } from '@@/form-components/FormActions';
-import { FormSection } from '@@/form-components/FormSection';
 import { FormControl } from '@@/form-components/FormControl';
+import { FormSection } from '@@/form-components/FormSection';
+import { FormActions } from '@@/form-components/FormActions';
+import { Button } from '@@/buttons';
 
-import { NameField } from '../../containers/CreateView/BaseForm/NameField';
-import { NetworkSelector } from '../../containers/components/NetworkSelector';
+import { TemplateViewModel } from '../../view-model';
 import { AdvancedSettings } from '../AdvancedSettings';
-import { PortsMappingField } from '../../containers/CreateView/BaseForm/PortsMappingField';
-import { VolumesTab } from '../../containers/CreateView/VolumesTab';
-import { HostsFileEntries } from '../../containers/CreateView/NetworkTab/HostsFileEntries';
-import { LabelsTab } from '../../containers/CreateView/LabelsTab';
-import { HostnameField } from '../../containers/CreateView/NetworkTab/HostnameField';
+import { EnvVarsFieldset } from '../EdgeDeployForm/EnvVarsFieldset';
 
 import { useValidation } from './useValidation';
 import { FormValues } from './types';
 import { useCreate } from './useCreate';
 
-export function DeployForm({
+export function ContainerDeployForm({
   template,
   unselect,
 }: {

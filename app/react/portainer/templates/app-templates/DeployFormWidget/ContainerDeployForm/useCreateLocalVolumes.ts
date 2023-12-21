@@ -1,8 +1,7 @@
 import { useMutation } from 'react-query';
 
 import { useEnvironmentId } from '@/react/hooks/useEnvironmentId';
-
-import { createVolume } from '../../volumes/queries/useCreateVolume';
+import { createVolume } from '@/react/docker/volumes/queries/useCreateVolume';
 
 export function useCreateLocalVolumes() {
   const environmentId = useEnvironmentId();

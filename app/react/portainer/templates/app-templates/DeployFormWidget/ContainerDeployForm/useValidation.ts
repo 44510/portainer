@@ -2,14 +2,14 @@ import { object, string } from 'yup';
 import { useMemo } from 'react';
 
 import { accessControlFormValidation } from '@/react/portainer/access-control/AccessControlForm';
-import { appTemplateEnvVarValidationSchema } from '@/react/edge/templates/AppTemplatesView/EnvVarsFieldset';
+import { hostnameSchema } from '@/react/docker/containers/CreateView/NetworkTab/HostnameField';
+import { hostFileSchema } from '@/react/docker/containers/CreateView/NetworkTab/HostsFileEntries';
+import { labelsTabUtils } from '@/react/docker/containers/CreateView/LabelsTab';
+import { nameValidation } from '@/react/docker/containers/CreateView/BaseForm/NameField';
+import { validationSchema as portSchema } from '@/react/docker/containers/CreateView/BaseForm/PortsMappingField.validation';
+import { volumesTabUtils } from '@/react/docker/containers/CreateView/VolumesTab';
 
-import { hostnameSchema } from '../../containers/CreateView/NetworkTab/HostnameField';
-import { hostFileSchema } from '../../containers/CreateView/NetworkTab/HostsFileEntries';
-import { labelsTabUtils } from '../../containers/CreateView/LabelsTab';
-import { nameValidation } from '../../containers/CreateView/BaseForm/NameField';
-import { validationSchema as portSchema } from '../../containers/CreateView/BaseForm/PortsMappingField.validation';
-import { volumesTabUtils } from '../../containers/CreateView/VolumesTab';
+import { appTemplateEnvVarValidationSchema } from '../EdgeDeployForm/EnvVarsFieldset';
 
 export function useValidation(isAdmin: boolean) {
   return useMemo(

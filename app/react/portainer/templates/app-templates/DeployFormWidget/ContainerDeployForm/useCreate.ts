@@ -2,9 +2,9 @@ import { useRouter } from '@uirouter/react';
 
 import { notifySuccess } from '@/portainer/services/notifications';
 import { useCurrentEnvironment } from '@/react/hooks/useCurrentEnvironment';
-import { TemplateViewModel } from '@/react/portainer/templates/app-templates/view-model';
+import { useCreateOrReplaceMutation } from '@/react/docker/containers/CreateView/useCreateMutation';
 
-import { useCreateOrReplaceMutation } from '../../containers/CreateView/useCreateMutation';
+import { TemplateViewModel } from '../../view-model';
 
 import { FormValues } from './types';
 import { createContainerConfiguration } from './createContainerConfig';

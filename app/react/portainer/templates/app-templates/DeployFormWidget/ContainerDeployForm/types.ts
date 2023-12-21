@@ -1,8 +1,7 @@
 import { AccessControlFormData } from '@/react/portainer/access-control/types';
-
-import { PortMapping } from '../../containers/CreateView/BaseForm/PortsMappingField';
-import { VolumesTabValues } from '../../containers/CreateView/VolumesTab';
-import { LabelsTabValues } from '../../containers/CreateView/LabelsTab';
+import { PortMapping } from '@/react/docker/containers/CreateView/BaseForm/PortsMappingField';
+import { VolumesTabValues } from '@/react/docker/containers/CreateView/VolumesTab';
+import { LabelsTabValues } from '@/react/docker/containers/CreateView/LabelsTab';
 
 export interface FormValues {
   name: string;

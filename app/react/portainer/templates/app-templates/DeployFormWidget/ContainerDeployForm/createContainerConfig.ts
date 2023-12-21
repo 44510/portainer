@@ -1,9 +1,9 @@
 import { commandStringToArray } from '@/docker/helpers/containers';
-import { TemplateViewModel } from '@/react/portainer/templates/app-templates/view-model';
+import { parsePortBindingRequest } from '@/react/docker/containers/CreateView/BaseForm/PortsMappingField.requestModel';
+import { volumesTabUtils } from '@/react/docker/containers/CreateView/VolumesTab';
+import { CreateContainerRequest } from '@/react/docker/containers/CreateView/types';
 
-import { parsePortBindingRequest } from '../../containers/CreateView/BaseForm/PortsMappingField.requestModel';
-import { volumesTabUtils } from '../../containers/CreateView/VolumesTab';
-import { CreateContainerRequest } from '../../containers/CreateView/types';
+import { TemplateViewModel } from '../../view-model';
 
 import { FormValues } from './types';
 
