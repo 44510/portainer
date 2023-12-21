@@ -1,3 +1,6 @@
+import { useIsEnvironmentAdmin } from '@/react/hooks/useUser';
+import { useCurrentEnvironment } from '@/react/hooks/useCurrentEnvironment';
+
 import { InputList } from '@@/form-components/InputList';
 import { ArrayError } from '@@/form-components/InputList/InputList';
 
@@ -8,14 +11,20 @@ import { Item } from './Item';
 export function VolumesTab({
   onChange,
   values,
-  allowBindMounts,
   errors,
 }: {
   onChange: (values: Values) => void;
   values: Values;
-  allowBindMounts: boolean;
   errors?: ArrayError<Values>;
 }) {
+  const isEnvironmentAdmin = useIsEnvironmentAdmin();
+  const envQuery = useCurrentEnvironment();
+
+  const allowBindMounts = !!(
+    isEnvironmentAdmin ||
+    envQuery.data?.SecuritySettings.allowBindMountsForRegularUsers
+  );
+
   return (
     <InputContext.Provider value={allowBindMounts}>
       <InputList<Volume>
