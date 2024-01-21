@@ -60,9 +60,13 @@ import { EnvironmentVariablesFormSection } from '@/react/kubernetes/applications
 import { kubeEnvVarValidationSchema } from '@/react/kubernetes/applications/components/EnvironmentVariablesFormSection/kubeEnvVarValidationSchema';
 
 import { applicationsModule } from './applications';
+import { volumesModule } from './volumes';
 
 export const ngModule = angular
-  .module('portainer.kubernetes.react.components', [applicationsModule])
+  .module('portainer.kubernetes.react.components', [
+    applicationsModule,
+    volumesModule,
+  ])
   .component(
     'ingressClassDatatable',
     r2a(IngressClassDatatableAngular, [
