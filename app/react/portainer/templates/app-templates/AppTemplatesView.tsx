@@ -2,6 +2,7 @@ import { useParamState } from '@/react/hooks/useParamState';
 import { useEnvironmentId } from '@/react/hooks/useEnvironmentId';
 import { useInfo } from '@/react/docker/proxy/queries/useInfo';
 import { useApiVersion } from '@/react/docker/proxy/queries/useVersion';
+import { useAuthorizations } from '@/react/hooks/useUser';
 
 import { PageHeader } from '@@/PageHeader';
 
@@ -11,6 +12,10 @@ import { AppTemplatesList } from './AppTemplatesList';
 import { DeployForm } from './DeployFormWidget/DeployFormWidget';
 
 export function AppTemplatesView() {
+  const hasCreateAuth = useAuthorizations([
+    'DockerContainerCreate',
+    'PortainerStackCreate',
+  ]);
   const [selectedTemplateId, setSelectedTemplateId] = useParamState<number>(
     'template',
     (param) => (param ? parseInt(param, 10) : 0)
@@ -37,7 +42,13 @@ export function AppTemplatesView() {
       <AppTemplatesList
         templates={templatesQuery.data}
         selectedId={selectedTemplateId}
-        onSelect={(template) => setSelectedTemplateId(template.Id)}
+        onSelect={(template) => {
+          if (!hasCreateAuth) {
+            return;
+          }
+
+          setSelectedTemplateId(template.Id);
+        }}
         disabledTypes={disabledTypes}
         fixedCategories={fixedCategories}
         storageKey={tableKey}
