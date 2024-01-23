@@ -69,7 +69,7 @@ export function Badge({
   children,
 }: PropsWithChildren<Props>) {
   const baseClasses = clsx(
-    'flex items-center rounded-full',
+    'inline-flex items-center rounded-full',
     'w-fit px-2 py-0.5',
     '!text-xs font-medium'
   );
