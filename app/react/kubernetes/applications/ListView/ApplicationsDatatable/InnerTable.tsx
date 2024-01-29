@@ -8,7 +8,6 @@ export function InnerTable({
   hideStacks,
 }: {
   dataset: Array<Application>;
-  // tableKey: string;
   hideStacks: boolean;
 }) {
   const columns = useBaseColumns(hideStacks);
