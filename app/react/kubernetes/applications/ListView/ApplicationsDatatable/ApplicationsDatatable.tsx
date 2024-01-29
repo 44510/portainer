@@ -8,7 +8,10 @@ import { CreateFromManifestButton } from '@/react/kubernetes/components/CreateFr
 import { useNamespacesQuery } from '@/react/kubernetes/namespaces/queries/useNamespacesQuery';
 import { useEnvironmentId } from '@/react/hooks/useEnvironmentId';
 import { useCurrentEnvironment } from '@/react/hooks/useCurrentEnvironment';
-import { useIsEnvironmentAdmin } from '@/react/hooks/useUser';
+import {
+  useAuthorizations,
+  useIsEnvironmentAdmin,
+} from '@/react/hooks/useUser';
 
 import { TableSettingsMenu } from '@@/datatables';
 import { useRepeater } from '@@/datatables/useRepeater';
@@ -51,10 +54,12 @@ export function ApplicationsDatatable({
   const envId = useEnvironmentId();
   const envQuery = useCurrentEnvironment();
   const namespaceMetaListQuery = useNamespacesQuery(envId);
-  const isEnvironmentAdmin = useIsEnvironmentAdmin();
+  const isEnvironmentAdmin = useIsEnvironmentAdmin({ adminOnlyCE: false });
 
   const tableState = useKubeStore('kubernetes.applications', 'Name');
   useRepeater(tableState.autoRefreshRate, onRefresh);
+
+  const hasWriteAuth = useAuthorizations('K8sApplicationsW', undefined, true);
 
   const { setShowSystemResources } = tableState;
 
@@ -79,6 +84,7 @@ export function ApplicationsDatatable({
       title="Applications"
       titleIcon={BoxIcon}
       isLoading={isLoading}
+      disableSelect={!hasWriteAuth}
       isRowSelectable={(row) =>
         !namespaceMetaListQuery.data?.[row.original.ResourcePool]?.IsSystem
       }
@@ -92,19 +98,21 @@ export function ApplicationsDatatable({
       renderSubRow={(row) => (
         <SubRow item={row.original} hideStacks={hideStacks} />
       )}
-      renderTableActions={(selectedItems) => (
-        <>
-          <DeleteButton
-            disabled={selectedItems.length === 0}
-            confirmMessage="Do you want to remove the selected application(s)?"
-            onConfirmed={() => onRemove(selectedItems)}
-          />
+      renderTableActions={(selectedItems) =>
+        hasWriteAuth && (
+          <>
+            <DeleteButton
+              disabled={selectedItems.length === 0}
+              confirmMessage="Do you want to remove the selected application(s)?"
+              onConfirmed={() => onRemove(selectedItems)}
+            />
 
-          <AddButton color="secondary">Add with form</AddButton>
+            <AddButton color="secondary">Add with form</AddButton>
 
-          <CreateFromManifestButton />
-        </>
-      )}
+            <CreateFromManifestButton />
+          </>
+        )
+      }
       renderTableSettings={() => (
         <TableSettingsMenu>
           <DefaultDatatableSettings
