@@ -10,6 +10,6 @@ export function useLoadState(environmentId: EnvironmentId, enabled = true) {
   return {
     teams: teams.data,
     users: users.data,
-    isLoading: teams.isLoading || users.isLoading,
+    isLoading: teams.isInitialLoading || users.isInitialLoading,
   };
 }
