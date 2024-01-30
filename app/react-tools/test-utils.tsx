@@ -2,7 +2,7 @@ import 'vitest-dom/extend-expect';
 import { render, RenderOptions } from '@testing-library/react';
 import { UIRouter, pushStateLocationPlugin } from '@uirouter/react';
 import { PropsWithChildren, ReactElement } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function Provider({ children }: PropsWithChildren<unknown>) {
   return <UIRouter plugins={[pushStateLocationPlugin]}>{children}</UIRouter>;
