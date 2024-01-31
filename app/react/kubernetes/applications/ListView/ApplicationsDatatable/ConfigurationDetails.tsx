@@ -1,12 +1,20 @@
 import { SensitiveDetails } from './SensitiveDetails';
 import { Application, ConfigKind } from './types';
 
-export function ConfigurationDetails({ item }: { item: Application }) {
+export function ConfigurationDetails({
+  item,
+  areSecretsRestricted,
+  isEnvironmentAdmin,
+  username,
+}: {
+  item: Application;
+  areSecretsRestricted: boolean;
+  isEnvironmentAdmin: boolean;
+  username: string;
+}) {
   const secrets = item.Configurations?.filter(
     (config) => config.Data && config.Kind === ConfigKind.Secret
-  )
-    .flatMap((config) => Object.entries(config.Data || {}))
-    .map(([key, value]) => ({ key, value }));
+  );
 
   if (!secrets || secrets.length === 0) {
     return null;
@@ -19,17 +27,28 @@ export function ConfigurationDetails({ item }: { item: Application }) {
         <tbody>
           <tr>
             <td>
-              {secrets.map((secret) => (
-                <SensitiveDetails
-                  key={secret.key}
-                  name={secret.key}
-                  value={secret.value}
-                />
-              ))}
+              {secrets.map((secret) =>
+                Object.entries(secret.Data || {}).map(([key, value]) => (
+                  <SensitiveDetails
+                    key={key}
+                    name={key}
+                    value={value}
+                    canSeeValue={canSeeValue(secret)}
+                  />
+                ))
+              )}
             </td>
           </tr>
         </tbody>
       </table>
     </>
   );
+
+  function canSeeValue(secret: { ConfigurationOwner: string }) {
+    return (
+      !areSecretsRestricted ||
+      isEnvironmentAdmin ||
+      secret.ConfigurationOwner === username
+    );
+  }
 }

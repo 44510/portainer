@@ -25,6 +25,7 @@ export interface Application {
   Configurations?: Array<{
     Data?: object;
     Kind: ConfigKind;
+    ConfigurationOwner: string;
   }>;
   LoadBalancerIPAddress?: string;
   PublishedPorts?: Array<{

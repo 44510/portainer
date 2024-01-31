@@ -8,15 +8,21 @@ import styles from './SensitiveDetails.module.css';
 export function SensitiveDetails({
   name,
   value,
+  canSeeValue,
 }: {
   name: string;
   value: string;
+  canSeeValue?: boolean;
 }) {
   return (
     <div className={styles.sensitiveDetailsContainer}>
       <div className="text-wrap">{name}</div>
-      <ShowHide value={value} useAsterisk />
-      <CopyButton copyText={value} />
+      {canSeeValue && (
+        <>
+          <ShowHide value={value} useAsterisk />
+          <CopyButton copyText={value} />
+        </>
+      )}
     </div>
   );
 }
