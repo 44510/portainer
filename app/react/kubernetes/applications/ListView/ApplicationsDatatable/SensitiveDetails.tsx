@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
+import { RestrictedSecretBadge } from '@/react/kubernetes/configs/RestrictedSecretBadge';
+
 import { Button, CopyButton } from '@@/buttons';
 
 import styles from './SensitiveDetails.module.css';
@@ -17,11 +19,13 @@ export function SensitiveDetails({
   return (
     <div className={styles.sensitiveDetailsContainer}>
       <div className="text-wrap">{name}</div>
-      {canSeeValue && (
+      {canSeeValue ? (
         <>
           <ShowHide value={value} useAsterisk />
           <CopyButton copyText={value} />
         </>
+      ) : (
+        <RestrictedSecretBadge />
       )}
     </div>
   );
