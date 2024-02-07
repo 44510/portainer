@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@/react-tools/test-utils';
 
 import { CopyButton } from './CopyButton';
 

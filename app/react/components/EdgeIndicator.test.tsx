@@ -1,5 +1,7 @@
+import { render } from '@/react-tools/test-utils';
 import { createMockEnvironment } from '@/react-tools/test-mocks';
-import { renderWithQueryClient } from '@/react-tools/test-utils';
+
+import { withTestQueryProvider } from '../test-utils/withTestQuery';
 
 import { EdgeIndicator } from './EdgeIndicator';
 
@@ -31,8 +33,10 @@ async function renderComponent(
   environment.EdgeCheckinInterval = checkInInterval;
   environment.QueryDate = queryDate;
 
-  const queries = renderWithQueryClient(
-    <EdgeIndicator environment={environment} showLastCheckInDate />
+  const Wrapped = withTestQueryProvider(EdgeIndicator);
+
+  const queries = render(
+    <Wrapped environment={environment} showLastCheckInDate />
   );
 
   await expect(queries.findByRole('status')).resolves.toBeVisible();

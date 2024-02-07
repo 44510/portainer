@@ -1,6 +1,8 @@
-import { renderWithQueryClient } from '@/react-tools/test-utils';
-import { UserContext } from '@/react/hooks/useUser';
+import { render } from '@/react-tools/test-utils';
 import { UserViewModel } from '@/portainer/models/user';
+import { withUserProvider } from '@/react/test-utils/withUserProvider';
+import { withTestRouter } from '@/react/test-utils/withRouter';
+import { withTestQueryProvider } from '@/react/test-utils/withTestQuery';
 
 import { NetworkContainer } from '../types';
 
@@ -27,15 +29,18 @@ vi.mock('@uirouter/react', async (importOriginal: () => Promise<object>) => ({
 
 test('Network container values should be visible and the link should be valid', async () => {
   const user = new UserViewModel({ Username: 'test', Role: 1 });
-  const { findByText } = renderWithQueryClient(
-    <UserContext.Provider value={{ user }}>
-      <NetworkContainersTable
-        networkContainers={networkContainers}
-        nodeName=""
-        environmentId={1}
-        networkId="pc8xc9s6ot043vl1q5iz4zhfs"
-      />
-    </UserContext.Provider>
+
+  const Wrapped = withTestQueryProvider(
+    withUserProvider(withTestRouter(NetworkContainersTable), user)
+  );
+
+  const { findByText } = render(
+    <Wrapped
+      networkContainers={networkContainers}
+      nodeName=""
+      environmentId={1}
+      networkId="pc8xc9s6ot043vl1q5iz4zhfs"
+    />
   );
 
   await expect(findByText('Containers in network')).resolves.toBeVisible();

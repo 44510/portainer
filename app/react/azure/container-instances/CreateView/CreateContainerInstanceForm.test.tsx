@@ -1,8 +1,10 @@
 import userEvent from '@testing-library/user-event';
 
-import { UserContext } from '@/react/hooks/useUser';
 import { UserViewModel } from '@/portainer/models/user';
-import { renderWithQueryClient } from '@/react-tools/test-utils';
+import { withUserProvider } from '@/react/test-utils/withUserProvider';
+import { withTestRouter } from '@/react/test-utils/withRouter';
+import { withTestQueryProvider } from '@/react/test-utils/withTestQuery';
+import { render } from '@/react-tools/test-utils';
 
 import { CreateContainerInstanceForm } from './CreateContainerInstanceForm';
 
@@ -15,12 +17,10 @@ vi.mock('@uirouter/react', async (importOriginal: () => Promise<object>) => ({
 
 test('submit button should be disabled when name or image is missing', async () => {
   const user = new UserViewModel({ Username: 'user' });
-
-  const { findByText, getByText, getByLabelText } = renderWithQueryClient(
-    <UserContext.Provider value={{ user }}>
-      <CreateContainerInstanceForm />
-    </UserContext.Provider>
+  const Wrapped = withTestQueryProvider(
+    withUserProvider(withTestRouter(CreateContainerInstanceForm), user)
   );
+  const { findByText, getByText, getByLabelText } = render(<Wrapped />);
 
   await expect(findByText(/Azure settings/)).resolves.toBeVisible();
 

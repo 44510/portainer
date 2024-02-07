@@ -1,6 +1,7 @@
-import { UserContext } from '@/react/hooks/useUser';
+import { render } from '@/react-tools/test-utils';
 import { UserViewModel } from '@/portainer/models/user';
-import { renderWithQueryClient } from '@/react-tools/test-utils';
+import { withTestQueryProvider } from '@/react/test-utils/withTestQuery';
+import { withUserProvider } from '@/react/test-utils/withUserProvider';
 
 import { TeamAssociationSelector } from './TeamAssociationSelector';
 
@@ -13,9 +14,9 @@ test('renders correctly', () => {
 function renderComponent() {
   const user = new UserViewModel({ Username: 'user' });
 
-  return renderWithQueryClient(
-    <UserContext.Provider value={{ user }}>
-      <TeamAssociationSelector users={[]} memberships={[]} teamId={3} />
-    </UserContext.Provider>
+  const Wrapped = withTestQueryProvider(
+    withUserProvider(TeamAssociationSelector, user)
   );
+
+  return render(<Wrapped users={[]} memberships={[]} teamId={3} />);
 }
