@@ -1,5 +1,6 @@
+import { render, within } from '@testing-library/react';
+
 import { UserViewModel } from '@/portainer/models/user';
-import { render, within } from '@/react-tools/test-utils';
 import { withUserProvider } from '@/react/test-utils/withUserProvider';
 import { withTestRouter } from '@/react/test-utils/withRouter';
 

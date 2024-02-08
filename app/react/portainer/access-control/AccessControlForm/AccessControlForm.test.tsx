@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
+import { render, within } from '@testing-library/react';
 
-import { render, within } from '@/react-tools/test-utils';
 import { server } from '@/setup-tests/server';
 import { UserViewModel } from '@/portainer/models/user';
 import { Team, TeamId } from '@/react/portainer/users/teams/types';

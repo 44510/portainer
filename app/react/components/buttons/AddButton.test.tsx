@@ -1,6 +1,6 @@
 import { UIView } from '@uirouter/react';
+import { render } from '@testing-library/react';
 
-import { render } from '@/react-tools/test-utils';
 import { withTestRouter } from '@/react/test-utils/withRouter';
 
 import { AddButton } from './AddButton';

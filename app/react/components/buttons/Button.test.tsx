@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react';
-
-import { fireEvent, render } from '@/react-tools/test-utils';
+import { fireEvent, render } from '@testing-library/react';
 
 import { Button, Props } from './Button';
 

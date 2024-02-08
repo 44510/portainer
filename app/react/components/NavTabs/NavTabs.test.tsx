@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 
-import { render } from '@/react-tools/test-utils';
 import { withTestRouter } from '@/react/test-utils/withRouter';
 
 import { NavTabs, Option } from './NavTabs';

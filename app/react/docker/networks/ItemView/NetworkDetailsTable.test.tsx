@@ -1,4 +1,5 @@
-import { render } from '@/react-tools/test-utils';
+import { render } from '@testing-library/react';
+
 import { UserContext } from '@/react/hooks/useUser';
 import { UserViewModel } from '@/portainer/models/user';
 

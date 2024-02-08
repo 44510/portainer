@@ -1,11 +1,11 @@
 import { UISref, UIView } from '@uirouter/react';
+import { render, screen } from '@testing-library/react';
 
 import { withTestRouter } from '@/react/test-utils/withRouter';
-import { render, screen } from '@/react-tools/test-utils';
 
 function RelativePathLink() {
   return (
-    <UISref to=".custom" options={{}}>
+    <UISref to=".custom">
       <span>Link</span>
     </UISref>
   );
@@ -30,7 +30,7 @@ test.todo('should render a link with relative path', () => {
         url: 'custom',
       },
     ],
-    route: 'parent.custom',
+    route: 'parent',
   });
 
   render(<WrappedComponent />);

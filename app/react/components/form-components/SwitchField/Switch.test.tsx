@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react';
-
-import { render } from '@/react-tools/test-utils';
+import { render } from '@testing-library/react';
 
 import { Switch, Props } from './Switch';
 

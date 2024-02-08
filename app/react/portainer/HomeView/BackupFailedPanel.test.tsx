@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
+import { render } from '@testing-library/react';
 
 import { server } from '@/setup-tests/server';
-import { render } from '@/react-tools/test-utils';
 import { isoDate } from '@/portainer/filters/filters';
 import { withTestRouter } from '@/react/test-utils/withRouter';
 import { withTestQueryProvider } from '@/react/test-utils/withTestQuery';

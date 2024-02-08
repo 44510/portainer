@@ -1,10 +1,10 @@
 import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 
 import { UserViewModel } from '@/portainer/models/user';
 import { withUserProvider } from '@/react/test-utils/withUserProvider';
 import { withTestRouter } from '@/react/test-utils/withRouter';
 import { withTestQueryProvider } from '@/react/test-utils/withTestQuery';
-import { render } from '@/react-tools/test-utils';
 
 import { CreateContainerInstanceForm } from './CreateContainerInstanceForm';
 

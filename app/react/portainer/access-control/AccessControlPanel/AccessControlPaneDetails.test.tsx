@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { http, HttpResponse } from 'msw';
+import { render } from '@testing-library/react';
 
-import { render } from '@/react-tools/test-utils';
 import { createMockTeams, createMockUsers } from '@/react-tools/test-mocks';
 import { server } from '@/setup-tests/server';
 import { Role } from '@/portainer/users/types';

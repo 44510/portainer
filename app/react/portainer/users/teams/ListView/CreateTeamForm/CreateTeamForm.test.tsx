@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
+import { render, waitFor } from '@testing-library/react';
 
-import { render, waitFor } from '@/react-tools/test-utils';
 import { withTestQueryProvider } from '@/react/test-utils/withTestQuery';
 
 import { CreateTeamForm } from './CreateTeamForm';

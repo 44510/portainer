@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
+import { render } from '@testing-library/react';
 
-import { render } from '@/react-tools/test-utils';
 import { Environment } from '@/react/portainer/environments/types';
 import { UserViewModel } from '@/portainer/models/user';
 import { server } from '@/setup-tests/server';
