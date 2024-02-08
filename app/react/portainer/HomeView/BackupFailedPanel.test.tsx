@@ -23,7 +23,7 @@ test('when backup failed, should show message', async () => {
   ).resolves.toBeVisible();
 });
 
-test.only("when user is using less nodes then allowed he shouldn't see message", async () => {
+test("when user is using less nodes then allowed he shouldn't see message", async () => {
   const { findByText } = renderComponent({ failed: false });
 
   await expect(
