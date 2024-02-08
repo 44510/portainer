@@ -43,6 +43,12 @@ rules:
         pathGroupsExcludedImportTypes: ['internal'],
       },
     ]
+  no-restricted-imports:
+    - error
+    - patterns:
+        - group:
+            - '@/react/test-utils/*'
+          message: 'These utils are just for test files'
 
 settings:
   'import/resolver':
